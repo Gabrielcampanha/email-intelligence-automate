@@ -1,0 +1,7 @@
+openai
+prefect
+fastapi
+uvicorn
+pydantic
+prometheus-client
+python-dotenv

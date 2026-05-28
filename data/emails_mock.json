@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "from": "financeiro@empresa.com.br",
+    "subject": "Problema com fatura do mês de abril",
+    "body": "Prezado(a),\n\nEstou entrando em contato para reportar um problema com a fatura do mês de abril. O valor cobrado está diferente do que esperávamos conforme o contrato.\n\nAgradeço pela atenção e aguardo retorno.\n\nAtenciosamente,\nMaria Silva"
+  },
+  {
+    "id": "2",
+    "from": "cliente@exemplo.com",
+    "subject": "Dúvida sobre funcionamento do produto",
+    "body": "Olá,\n\nGostaria de entender melhor como funciona a funcionalidade X do produto. Vi no site que há uma nova versão e queria saber se ela resolve o problema que estou enfrentando.\n\nObrigado pela ajuda!\n\nJoão Pereira"
+  },
+  {
+    "id": "3",
+    "from": "promocoes@spam.com",
+    "subject": "GANHE DINHEIRO RÁPIDO - OFERTA EXCLUSIVA!",
+    "body": "OLÁ! VOCÊ FOI SELECIONADO PARA RECEBER UMA OFERTA EXCLUSIVA!\n\nGANHE ATÉ R$ 10.000,00 EM APENAS 24 HORAS!\n\nCLIQUE AQUI E DESCUBRA COMO: [LINK SUSPEITO]\n\nNÃO PERCA ESSA OPORTUNIDADE ÚNICA!"
+  },
+  {
+    "id": "4",
+    "from": "sistema@urgente.com",
+    "subject": "URGENTE: Servidor principal fora do ar!",
+    "body": "ALERTA URGENTE!\n\nO servidor principal caiu às 11:45h de hoje. Todos os serviços estão indisponíveis.\n\nPor favor, responda imediatamente para coordenarmos a solução.\n\nAtenciosamente,\nEquipe de TI"
+  }
+]
