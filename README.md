@@ -2,9 +2,41 @@
 
 Sistema de automação inteligente de e-mails com IA, desenvolvido para processamento automático, classificação semântica, extração estruturada de informações e monitoramento operacional em tempo real.
 
-![Dashboard Preview](./images/dashboard.png)
+![Dashboard Preview](./images/Dashboard.PNG)
 
 ---
+
+## Dashboard Analítico
+
+O sistema possui um dashboard interativo para monitoramento em tempo real dos e-mails processados pela IA.
+
+Nele é possível visualizar:
+- categorias identificadas automaticamente
+- nível de urgência
+- resumos gerados pela IA
+- ações recomendadas
+- métricas operacionais
+- filtros dinâmicos
+
+A interface foi desenvolvida para facilitar análises rápidas e auxiliar tomadas de decisão operacionais.
+
+![Dashboard de E-mails](./images/emails.PNG)
+
+---
+
+## Recomendação Inteligente com IA
+
+Além da classificação automática, o sistema também gera recomendações contextuais baseadas no conteúdo do e-mail.
+
+A IA:
+- resume automaticamente a solicitação
+- identifica possíveis riscos
+- sugere ações operacionais
+- prioriza atendimentos urgentes
+
+Isso permite reduzir trabalho manual e acelerar processos internos.
+
+![Recomendações da IA](./images/recomendacoes.PNG)
 
 # Visão Geral
 
