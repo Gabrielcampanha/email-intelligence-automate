@@ -5,3 +5,4 @@ uvicorn
 pydantic
 prometheus-client
 python-dotenv
+psycopg2-binary

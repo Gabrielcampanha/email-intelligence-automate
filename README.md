@@ -1,5 +1,8 @@
 # Email Intelligence Automation System
 
+![Tests Status](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/actions/workflows/tests.yml/badge.svg)
+![Coverage](https://img.shields.io/badge/coverage-74%25-green)
+
 Sistema de automação inteligente de e-mails com IA, desenvolvido para processamento automático, classificação semântica, extração estruturada de informações e monitoramento operacional em tempo real.
 
 ![Dashboard Preview](./images/Dashboard.PNG)

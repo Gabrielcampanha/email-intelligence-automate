@@ -1,20 +1,31 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
+import psycopg2
+import os
 import plotly.express as px
 from pathlib import Path
 
 # Configuração da Página
 st.set_page_config(page_title="Email Intelligence Dashboard", page_icon="📧", layout="wide")
 
+def is_postgres():
+    db_url = os.getenv("DATABASE_URL")
+    return db_url and db_url.startswith("postgres")
+
 # Função para conectar ao banco
 def get_data():
-    db_path = Path("data/emails.db")
-    if not db_path.exists():
-        return pd.DataFrame()
+    db_url = os.getenv("DATABASE_URL")
     
     try:
-        conn = sqlite3.connect(db_path)
+        if is_postgres():
+            conn = psycopg2.connect(db_url, sslmode="require")
+        else:
+            db_path = Path("data/emails.db")
+            if not db_path.exists():
+                return pd.DataFrame()
+            conn = sqlite3.connect(db_path)
+        
         df = pd.read_sql_query("SELECT * FROM emails ORDER BY processed_at DESC", conn)
         conn.close()
         return df
@@ -35,7 +46,12 @@ else:
     # --- MÉTRICAS LATERAIS ---
     st.sidebar.header("Filtros e Métricas")
     total_emails = len(df)
-    urgentes = df[df['urgent'] == 1].shape[0]
+    
+    # Tratamento de booleano para diferentes bancos
+    if is_postgres():
+        urgentes = df[df['urgent'] == True].shape[0]
+    else:
+        urgentes = df[df['urgent'] == 1].shape[0]
     
     st.sidebar.metric("Total de E-mails", total_emails)
     st.sidebar.metric("Urgentes 🔥", urgentes)
@@ -59,7 +75,12 @@ else:
         # Conta valores de urgência
         urgent_counts = df['urgent'].value_counts().reset_index()
         urgent_counts.columns = ['Status', 'Quantidade']
-        urgent_counts['Status'] = urgent_counts['Status'].map({1: 'Urgente', 0: 'Normal'})
+        
+        # Mapeamento dinâmico para booleano/inteiro
+        if is_postgres():
+            urgent_counts['Status'] = urgent_counts['Status'].map({True: 'Urgente', False: 'Normal'})
+        else:
+            urgent_counts['Status'] = urgent_counts['Status'].map({1: 'Urgente', 0: 'Normal'})
         
         fig_urg = px.bar(urgent_counts, x='Status', y='Quantidade', color='Status', 
                          color_discrete_map={'Urgente': '#ef553b', 'Normal': '#636efa'})
@@ -70,7 +91,11 @@ else:
     
     # Formatando a exibição da tabela
     display_df = df_filtered[['processed_at', 'sender', 'category', 'urgent', 'summary', 'recommended_action']].copy()
-    display_df['urgent'] = display_df['urgent'].map({1: '🚨 SIM', 0: '✅ NÃO'})
+    
+    if is_postgres():
+        display_df['urgent'] = display_df['urgent'].map({True: '🚨 SIM', False: '✅ NÃO'})
+    else:
+        display_df['urgent'] = display_df['urgent'].map({1: '🚨 SIM', 0: '✅ NÃO'})
     
     st.dataframe(display_df, use_container_width=True)
 

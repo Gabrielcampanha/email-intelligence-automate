@@ -1,0 +1,51 @@
+name: Tests and Quality Checks
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      # Caso precisasse de um banco real como Postgres, subiria aqui.
+      # Como usamos SQLite :memory:, não é necessário.
+      pass:
+        image: hello-world
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+
+    - name: Run Linting (flake8)
+      run: |
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+    - name: Run Formatting Check (black)
+      run: |
+        black --check .
+
+    - name: Run Tests with Coverage
+      env:
+        DB_PATH: ":memory:"
+        OPENAI_API_KEY: "test_key"
+        IMAP_SERVER: "mock.server.com"
+        EMAIL_USER: "test@test.com"
+        EMAIL_PASS: "test_pass"
+      run: |
+        pytest --cov=app --cov-report=term-missing --cov-fail-under=70

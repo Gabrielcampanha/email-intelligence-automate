@@ -8,9 +8,11 @@ ENV PYTHONUNBUFFERED=1
 # Definir o diretório de trabalho
 WORKDIR /app
 
-# Instalar dependências do sistema necessárias para algumas bibliotecas Python
+# Instalar dependências do sistema necessárias para algumas bibliotecas Python e Postgres
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    libpq-dev \
+    gcc \
     && rm -rf /var/lib/apt/lists/*
 
 # Copiar apenas o arquivo de requisitos primeiro para aproveitar o cache do Docker
